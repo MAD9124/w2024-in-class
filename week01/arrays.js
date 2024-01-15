@@ -7,14 +7,17 @@ const arr = [
   {
     id: 2,
     name: "mathieu",
+    grade: "A+",
   },
   {
     id: 3,
     name: "lulu",
+    grade: "A",
   },
   {
     id: 4,
     name: "gina",
+    grade: "B+",
   },
 ];
 
@@ -86,7 +89,36 @@ arr.forEach((value, i) => {
   value.grade = "A+";
 });
 
-console.log(arr);
+// console.log(arr);
+
+// reduce
+const numberArr = [1, 2, 3, 4, 5, 6, 7];
+const sum = numberArr.reduce((accumulator, currentValue) => {
+  // console.log(accumulator);
+  accumulator = currentValue + accumulator;
+  return accumulator;
+}, 0);
+// console.log('sum', sum)
+
+const map = arr.reduce((acc, cv) => {
+  if (acc[cv.grade]) {
+    acc[cv.grade].push(cv.name);
+  } else {
+    acc[cv.grade] = [cv.name];
+  }
+  return acc;
+}, {});
+
+// console.log('grade map', map)
+
+// inital value left blank, will automatically use index 0 as the first acc value
+console.log(
+  [1, 2, 3, 4, 5].reduce((acc, cv) => {
+    console.log("acc", acc);
+    console.log("cv", cv);
+    return `${acc}:${cv}`;
+  })
+);
 
 // strings '' = false
 // strings 'adsad' = true
