@@ -4,7 +4,7 @@ const server = http.createServer((req, res) => {
   if (req.url === "/api") {
     const data = { message: "Hello world from node.js" };
     res.statusCode = 200;
-    // res.setHeader("Content-Type", "application/json");
+    res.setHeader("Content-Type", "application/json");
     res.write(JSON.stringify({ data }));
     res.end();
     return;
