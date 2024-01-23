@@ -7,7 +7,7 @@ server.on("request", (req, res) => {
     const data = {
       message: "Hello from json nodejs",
     };
-    // res.setHeader("Content-Type", "application/json");
+    res.setHeader("Content-Type", "application/json");
     res.write(JSON.stringify({ data }));
     res.end();
     return;
@@ -16,7 +16,7 @@ server.on("request", (req, res) => {
     const data = {
       message: "tim is cool",
     };
-    // res.setHeader("Content-Type", "application/json");
+    res.setHeader("Content-Type", "application/json");
     res.write(JSON.stringify({ data }));
     res.end();
     return;
