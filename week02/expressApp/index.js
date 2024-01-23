@@ -10,7 +10,7 @@ app.get("/api", (req, res) => {
   const data = {
     message: "Hello from express!",
   };
-  res.status(404).send({ data });
+  res.status(200).send({ data });
 });
 
 app.get("/tim", (req, res) => {
