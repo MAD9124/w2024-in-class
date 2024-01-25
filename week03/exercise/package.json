@@ -1,0 +1,14 @@
+{
+  "name": "exercise",
+  "version": "1.0.0",
+  "description": "Week 3 exercise",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tim Robillard",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
