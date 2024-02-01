@@ -6,6 +6,8 @@ const {
   GraphQLList,
   GraphQLInt,
   GraphQLError,
+  GraphQLInputObjectType,
+  GraphQLString,
 } = require("graphql");
 const cars = require("./data/cars");
 const drivers = require("./data/drivers");
@@ -26,7 +28,25 @@ const getCar = {
 
 const getCars = {
   type: new GraphQLList(CarType),
-  resolve: () => cars,
+  args: {
+    filter: {
+      type: new GraphQLInputObjectType({
+        name: "GetCarsFilter",
+        fields: {
+          make: {
+            type: GraphQLString,
+          },
+        },
+      }),
+    },
+  },
+  resolve: (_, { filter }) => {
+    const { make } = filter;
+    if (make) {
+      return cars.filter((car) => car.make === make);
+    }
+    return cars;
+  },
 };
 
 const getDriver = {
