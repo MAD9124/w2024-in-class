@@ -16,7 +16,7 @@ const createDriver = {
     wins: { type: new GraphQLNonNull(GraphQLInt) },
   },
   resolve: (_source, { name, wins = 0 }) => {
-    const id = Date.now();
+    const id = drivers[drivers.length - 1].id + 1;
     const newDriver = {
       id,
       name,
@@ -46,7 +46,7 @@ const updateDriver = {
   args: {
     id: { type: new GraphQLNonNull(GraphQLInt) },
     name: { type: GraphQLString },
-    wins: { type: GraphQLString },
+    wins: { type: GraphQLInt },
   },
   resolve: (_source, { id, ...rest }) => {
     const idx = drivers.findIndex((driver) => driver.id === id);

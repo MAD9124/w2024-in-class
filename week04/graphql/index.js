@@ -3,12 +3,11 @@
 const { ApolloServer } = require("apollo-server");
 const schema = require("./schema.js");
 
-const PORT = process.env.PORT || 4000;
-
 const server = new ApolloServer({
   schema,
 });
 
+const PORT = process.env.PORT || 4000;
 server
   .listen(PORT)
   .then(({ url }) => {
