@@ -109,9 +109,18 @@ app.patch("/api/cars/:id", (req, res) => {
   });
 }); // update some properties of a car
 
-// D - delete (one)
+// D - delete
 app.delete("/api/cars/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const carIndex = cars.findIndex(car => car.id === id);
 
+  if (carIndex < 0 ) {
+    res.status(404).json({ error: { message: `Car with id ${id} not found` } });
+    return;
+  }
+
+  const [deletedCar] = cars.splice(carIndex, 1);
+  res.json({ data: deletedCar });
 }); // destroy the record for a car
 
 const PORT = process.env.PORT ?? 4000;
