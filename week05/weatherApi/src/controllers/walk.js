@@ -10,9 +10,9 @@ const errorHandler = (err) => {
   return { message, status };
 };
 
-const create = (req, res) => {
+const create = async (req, res) => {
   try {
-    const newWalk = walkService.create(req.body);
+    const newWalk = await walkService.create(req.body);
     res.status(201).json({
       data: newWalk,
     });
@@ -53,10 +53,10 @@ const getOne = (req, res) => {
   }
 };
 
-const replace = (req, res) => {
+const replace = async (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    const updatedWalk = walkService.replace(id, req.body);
+    const updatedWalk = await walkService.replace(id, req.body);
 
     res.status(201).json({
       data: updatedWalk,
@@ -69,10 +69,10 @@ const replace = (req, res) => {
   }
 };
 
-const update = (req, res) => {
+const update = async (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    const updatedWalk = walkService.update(id, req.body);
+    const updatedWalk = await walkService.update(id, req.body);
 
     res.status(201).json({
       data: updatedWalk,
