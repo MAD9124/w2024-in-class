@@ -1,8 +1,9 @@
 const axios = require("axios");
-const cacheService = require("./cacheService");
+// const cacheService = require("./cacheService");
+const redisService = require("./redisService");
 
 const getWeather = async (city, startTime) => {
-  const cachedWeather = cacheService.get(city, startTime);
+  const cachedWeather = await redisService.getWeather(city, startTime);
   if (cachedWeather) {
     console.log("Weather found in cache");
     return cachedWeather;
@@ -25,7 +26,7 @@ const getWeather = async (city, startTime) => {
       precipitation: data.forecast.forecastday[0].day.totalprecip_mm,
     };
 
-    cacheService.set(city, startTime, weather);
+    redisService.setWeather(city, startTime, weather);
 
     return weather;
   } catch (err) {
