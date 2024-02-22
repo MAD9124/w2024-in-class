@@ -2,13 +2,14 @@
 
 const { Router } = require("express");
 const carController = require("../controllers/cars");
+const validateCar = require("../middlewares/validateCar");
 
 const carRouter = Router();
 
-carRouter.post("/", carController.create);
+carRouter.post("/", validateCar, carController.create);
 carRouter.get("/", carController.getAll);
 carRouter.get("/:id", carController.getOne);
-carRouter.put("/:id", carController.replace);
+carRouter.put("/:id", validateCar, carController.replace);
 carRouter.patch("/:id", carController.update);
 carRouter.delete("/:id", carController.deleteOne);
 

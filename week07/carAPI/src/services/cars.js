@@ -5,9 +5,7 @@ const cars = require("../models/cars");
 const create = (body) => {
   const id = Date.now();
   const { make, model, colour } = body;
-  if (!make || !model || !colour) {
-    throw new Error(`400|Invalid input`);
-  }
+
   const car = {
     id,
     make,
@@ -34,9 +32,6 @@ const replace = (id, updates) => {
     throw new Error(`404|Car with id ${id} not found`);
   }
   const { make, model, colour } = updates;
-  if (!make || !model || !colour) {
-    throw new Error(`400|Invalid input`);
-  }
 
   const updatedCar = {
     id,
@@ -65,11 +60,11 @@ const update = (id, updates) => {
 
   cars[carIndex] = updatedCar;
 
-  return updatedCar
+  return updatedCar;
 };
 
 const deleteOne = (id) => {
-    // nice try
+  // nice try
 };
 
 module.exports = {
