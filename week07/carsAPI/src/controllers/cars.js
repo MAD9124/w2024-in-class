@@ -18,7 +18,15 @@ const errorHandler = (err) => {
   };
 };
 
+const uploadImage = (req, res) => {
+  res.status(200).send({
+    message: "Image uploaded successfully",
+    image: `uploads/${req.file.filename}`,
+  });
+};
+
 const create = (req, res) => {
+  console.log("made it to the controller!");
   try {
     const newCar = carService.create(req.body);
     res.status(201).json({
@@ -83,6 +91,7 @@ const deleteOne = (req, res) => {
 };
 
 module.exports = {
+  uploadImage,
   create,
   getAll,
   getOne,
