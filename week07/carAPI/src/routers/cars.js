@@ -1,10 +1,33 @@
 "use strict";
 
 const { Router } = require("express");
+const multer = require("multer");
+
 const carController = require("../controllers/cars");
 const validateCar = require("../middlewares/validateCar");
 
+const storage = multer.diskStorage({
+  destination: (_req, _file, cb) => {
+    cb(null, "public/uploads");
+  },
+  filename: (_req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage,
+limits: {
+
+}});
+
 const carRouter = Router();
+
+carRouter.post("/upload-image", upload.array("potato"), (req, res) => {
+  console.log("file", req.file);
+  res.json({
+    data: "success",
+  });
+});
 
 carRouter.post("/", validateCar, carController.create);
 carRouter.get("/", carController.getAll);
