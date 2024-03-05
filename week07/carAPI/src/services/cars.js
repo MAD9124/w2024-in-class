@@ -1,6 +1,7 @@
 "use strict";
 
 const cars = require("../models/cars");
+const { NotFoundError } = require("../middlewares/errors");
 
 const create = (body) => {
   const id = Date.now();
@@ -21,7 +22,7 @@ const getAll = () => cars;
 const getOne = (id) => {
   const car = cars.find((car) => car.id === id);
   if (!car) {
-    throw new Error(`404|Car with id ${id} not found`);
+    throw new NotFoundError(`Car with id ${id} not found`);
   }
   return car;
 };
@@ -29,7 +30,7 @@ const getOne = (id) => {
 const replace = (id, updates) => {
   const carIndex = cars.findIndex((car) => car.id === id);
   if (carIndex < 0) {
-    throw new Error(`404|Car with id ${id} not found`);
+    throw new NotFoundError(`Car with id ${id} not found`);
   }
   const { make, model, colour } = updates;
 
@@ -47,7 +48,7 @@ const update = (id, updates) => {
   const carIndex = cars.findIndex((car) => car.id === id);
 
   if (carIndex < 0) {
-    throw new Error(`404|Car with id ${id} not found`);
+    throw new NotFoundError(`Car with id ${id} not found`);
   }
 
   const { make, model, colour } = updates;

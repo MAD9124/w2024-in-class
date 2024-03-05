@@ -37,3 +37,15 @@ carRouter.patch("/:id", carController.update);
 carRouter.delete("/:id", carController.deleteOne);
 
 module.exports = carRouter;
+
+function hello(name) {
+  console.log('hello ' + name )
+}
+
+function test(cb1, cb2) {
+  cb1('hello')
+  cb2('world')
+}
+
+test(hello, hello)
+
