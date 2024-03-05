@@ -1,14 +1,11 @@
 "use strict";
 
+const { NotFoundError, BadRequestError } = require("../middlewares/errors");
 const cars = require("../models/cars");
 
 const create = (body) => {
   const id = Date.now();
   const { make, model, colour } = body;
-
-  if (!make || !model || !colour) {
-    throw new Error("400|Invalid input, Make, Model and Colour required");
-  }
 
   const newCar = {
     id,
@@ -27,7 +24,7 @@ const getAll = () => cars;
 const getOne = (id) => {
   const car = cars.find((car) => car.id === id);
   if (!car) {
-    throw new Error(`404|Car with id ${id} not found`);
+    throw new NotFoundError(`Car with id ${id} not found`);
   }
   return car;
 };
@@ -36,11 +33,11 @@ const replace = (id, updates) => {
   const carIndex = cars.findIndex((car) => car.id === id);
 
   if (carIndex < 0) {
-    throw new Error(`404|Car with id ${id} not found`);
+    throw new NotFoundError(`Car with id ${id} not found`);
   }
   const { make, model, colour } = updates;
   if (!make || !model || !colour) {
-    throw new Error("400|Invalid input, Make, Model and Colour required");
+    throw new BadRequestError("Invalid input, Make, Model and Colour required");
   }
   const updatedCar = {
     id,
@@ -57,7 +54,7 @@ const update = (id, updates) => {
   const carIndex = cars.findIndex((car) => car.id === id);
 
   if (carIndex < 0) {
-    throw new Error(`404|Car with id ${id} not found`);
+    throw new NotFoundError(`Car with id ${id} not found`);
   }
   const { make, model, colour } = updates;
   const updatedCar = {
