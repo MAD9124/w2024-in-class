@@ -1,23 +1,26 @@
-import 'dotenv/config';
-import express from 'express';
-import cors from 'cors';
+require("dotenv/config");
+const express = require("express");
+const cors = require("cors");
 
-import router from './router/index.js';
+const router = require("./router/index.js");
+const redisService = require('./services/redisService.js')
 
 const main = async () => {
-	const app = express();
+  const app = express();
+  await redisService.init();
 
-	app.use(cors());
+  app.use(cors());
 
-	app.get('/', (_req, res) => {
-		res.send('API running');
-	});
-	app.use('/api', router);
+  app.get("/", (_req, res) => {
+    res.send("API running");
+  });
+  
+  app.use("/api", router);
 
-	const PORT = process.env.PORT || 4000;
-	app.listen(PORT, () => {
-		console.log(`App running on port ${PORT}`);
-	});
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => {
+    console.log(`App running on port ${PORT}`);
+  });
 };
 
 main();
