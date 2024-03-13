@@ -1,14 +1,6 @@
 "use strict";
 
-const cars = require("../models/cars");
 const carService = require("../services/cars");
-
-const uploadImage = (req, res) => {
-  res.status(200).send({
-    message: "Image uploaded successfully",
-    image: `uploads/${req.file.filename}`,
-  });
-};
 
 const create = (req, res, next) => {
   console.log("made it to the controller!");
@@ -22,8 +14,8 @@ const create = (req, res, next) => {
   }
 };
 
-const getAll = (_req, res) => {
-  const cars = carService.getAll();
+const getAll = async (_req, res) => {
+  const cars = await carService.getAll();
   res.json({
     data: cars,
   });
@@ -72,7 +64,6 @@ const deleteOne = (req, res) => {
 };
 
 module.exports = {
-  uploadImage,
   create,
   getAll,
   getOne,

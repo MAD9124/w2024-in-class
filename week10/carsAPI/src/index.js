@@ -1,7 +1,9 @@
 "use strict";
 
+require("dotenv/config");
 const express = require("express");
 const morgan = require("morgan");
+require("./models/db");
 
 const carRouter = require("./routers/cars");
 const { errorHandler } = require("./middlewares/errors");

@@ -1,7 +1,7 @@
 "use strict";
 
 const { NotFoundError, BadRequestError } = require("../middlewares/errors");
-const cars = require("../models/cars");
+const Car = require("../models/cars");
 
 const create = (body) => {
   const id = Date.now();
@@ -19,7 +19,10 @@ const create = (body) => {
   return newCar;
 };
 
-const getAll = () => cars;
+const getAll = async () => {
+  const cars = await Car.find({});
+  return cars;
+};
 
 const getOne = (id) => {
   const car = cars.find((car) => car.id === id);
