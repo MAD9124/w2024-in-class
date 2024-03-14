@@ -2,10 +2,9 @@
 
 const carService = require("../services/cars");
 
-const create = (req, res, next) => {
-  console.log("made it to the controller!");
+const create = async (req, res, next) => {
   try {
-    const newCar = carService.create(req.body);
+    const newCar = await carService.create(req.body);
     res.status(201).json({
       data: newCar,
     });
@@ -21,10 +20,10 @@ const getAll = async (_req, res) => {
   });
 };
 
-const getOne = (req, res, next) => {
-  const id = parseInt(req.params.id);
+const getOne = async (req, res, next) => {
+  const id = req.params.id;
   try {
-    const car = carService.getOne(id);
+    const car = await carService.getOne(id);
     res.json({
       data: car,
     });
@@ -33,10 +32,10 @@ const getOne = (req, res, next) => {
   }
 };
 
-const replace = (req, res, next) => {
-  const id = parseInt(req.params.id);
+const update = async (req, res, next) => {
   try {
-    const updatedCar = carService.replace(id, req.body);
+    const id = req.params.id;
+    const updatedCar = await carService.update(id, req.body);
     res.json({
       data: updatedCar,
     });
@@ -45,29 +44,20 @@ const replace = (req, res, next) => {
   }
 };
 
-const update = (req, res, next) => {
+const deleteOne = async (req, res, next) => {
   try {
-    const id = parseInt(req.params.id);
-    const updatedCar = carService.update(id, req.body);
-    res.json({
-      data: updatedCar,
-    });
+    const id = req.params.id;
+    const deletedCar = await carService.deleteOne(id);
+    res.json({ data: deletedCar });
   } catch (err) {
     next(err);
   }
-};
-
-const deleteOne = (req, res) => {
-  const id = parseInt(req.params.id);
-  const deletedCar = carService.deleteOne(id);
-  res.json({ data: deletedCar });
 };
 
 module.exports = {
   create,
   getAll,
   getOne,
-  replace,
   update,
   deleteOne,
 };
