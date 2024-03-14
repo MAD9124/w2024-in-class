@@ -29,52 +29,28 @@ const getOne = async (id) => {
   return car;
 };
 
-const replace = (id, updates) => {
-  const carIndex = cars.findIndex((car) => car.id === id);
-  if (carIndex < 0) {
+const update = async (id, updates) => {
+  const updatedCar = await Car.findByIdAndUpdate(id, updates, {
+    new: true,
+  });
+  if (!updatedCar) {
     throw new NotFoundError(`Car with id ${id} not found`);
   }
-  const { make, model, colour } = updates;
-
-  const updatedCar = {
-    id,
-    make,
-    model,
-    colour,
-  };
-
-  cars[carIndex] = updatedCar;
-};
-
-const update = (id, updates) => {
-  const carIndex = cars.findIndex((car) => car.id === id);
-
-  if (carIndex < 0) {
-    throw new NotFoundError(`Car with id ${id} not found`);
-  }
-
-  const { make, model, colour } = updates;
-  const updatedCar = {
-    ...cars[carIndex],
-  };
-  if (make) updatedCar.make = make;
-  if (model) updatedCar.model = model;
-  if (colour) updatedCar.colour = colour;
-
-  cars[carIndex] = updatedCar;
-
   return updatedCar;
 };
 
-const deleteOne = (id) => {
-  // nice try
+const deleteOne = async (id) => {
+  const deletedCar = await Car.findByIdAndDelete(id);
+  if (!deletedCar) {
+    throw new NotFoundError(`Car with id ${id} not found`);
+  }
+  return deletedCar;
 };
 
 module.exports = {
   create,
   getAll,
   getOne,
-  replace,
   update,
   deleteOne,
 };
