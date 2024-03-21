@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const carSchema = new mongoose.Schema(
   {
     make: { type: String, minLength: 3, maxLength: 64 },
-    model: String,
-    colour: String,
+    model: { type: String, minLength: 3, maxLength: 64 },
+    colour: { type: String, minLength: 3, maxLength: 64 },
   },
   {
     timestamps: true,

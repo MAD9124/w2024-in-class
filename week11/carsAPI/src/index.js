@@ -7,9 +7,11 @@ const debug = require("debug")("week11");
 require("./models/db");
 const carRouter = require("./routers/cars");
 const { errorHandler } = require("./middlewares/errors");
+const sanitizeBody = require('./middlewares/sanitizeBody');
 
 const app = express();
 app.use(express.json());
+app.use(sanitizeBody);
 
 app.get("/", (_req, res) => {
   res.send("Server running 🚀🚀🚀");
