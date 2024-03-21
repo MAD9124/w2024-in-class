@@ -5,6 +5,8 @@ const express = require("express");
 const morgan = require("morgan");
 require("./models/db");
 
+const debug = require("debug")("week11");
+
 const carRouter = require("./routers/cars");
 const { errorHandler } = require("./middlewares/errors");
 
@@ -23,5 +25,5 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+  debug(`Server listening on port ${PORT}`);
 });
