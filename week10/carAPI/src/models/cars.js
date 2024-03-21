@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const carSchema = new mongoose.Schema(
   {
-    make: String,
+    make: { type: String, minLength: 3, maxLength: 64 },
     model: String,
     colour: String,
   },
