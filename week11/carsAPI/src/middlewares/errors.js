@@ -1,5 +1,5 @@
 const { MongooseError } = require("mongoose");
-const logger = require('../utils/logger');
+const logger = require("../utils/logger");
 const debug = require("debug")("week11:errorHandler");
 
 class ApiError extends Error {
@@ -10,7 +10,7 @@ class BadRequestError extends ApiError {
   statusCode = 400;
 }
 
-class UnauthorizedError extends ApiError {
+class UnauthenticatedError extends ApiError {
   statusCode = 401;
 }
 
@@ -24,7 +24,7 @@ class NotFoundError extends ApiError {
 
 const errorHandler = (error, req, res, next) => {
   debug(error);
-  logger.error('1', error.message)
+  logger.error("error", error.message, error);
 
   if (error instanceof MongooseError && error.name === "ValidationError") {
     res.status(400).json({
@@ -54,7 +54,7 @@ const errorHandler = (error, req, res, next) => {
 module.exports = {
   ApiError,
   BadRequestError,
-  UnauthorizedError,
+  UnauthenticatedError,
   ForbiddenError,
   NotFoundError,
   errorHandler,
