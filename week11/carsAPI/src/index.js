@@ -2,6 +2,7 @@
 
 require("dotenv/config");
 const express = require("express");
+const sanitizeMongoose = require('express-mongo-sanitize');
 const debug = require("debug")("week11");
 
 require("./models/db");
@@ -11,6 +12,7 @@ const sanitizeBody = require('./middlewares/sanitizeBody');
 
 const app = express();
 app.use(express.json());
+app.use(sanitizeMongoose());
 app.use(sanitizeBody);
 
 app.get("/", (_req, res) => {
