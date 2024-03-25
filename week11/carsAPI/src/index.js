@@ -14,6 +14,7 @@ const debug = require("debug")("week11");
 const carRouter = require("./routers/cars");
 const { errorHandler } = require("./middlewares/errors");
 const sanitizeBody = require("./middlewares/sanitizeBody");
+const logger = require("./utils/logger");
 
 const app = express();
 
@@ -45,5 +46,5 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  debug(`Server listening on port ${PORT}`);
+  logger.info(`Server listening on port ${PORT}`);
 });
