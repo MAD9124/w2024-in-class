@@ -1,9 +1,11 @@
 "use strict";
 
 const { NotFoundError, BadRequestError } = require("../middlewares/errors");
+const debug = require("debug")("week11:service:cars");
 const Car = require("../models/cars");
 
 const create = async (body) => {
+  debug(body);
   const car = new Car(body);
   const newCar = await car.save();
 

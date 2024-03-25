@@ -4,7 +4,7 @@ const carService = require("../services/cars");
 
 const create = async (req, res, next) => {
   try {
-    const newCar = await carService.create(req.body);
+    const newCar = await carService.create(req.sanitizedBody);
     res.status(201).json({
       data: newCar,
     });
@@ -35,7 +35,7 @@ const getOne = async (req, res, next) => {
 const update = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const updatedCar = await carService.update(id, req.body);
+    const updatedCar = await carService.update(id, req.sanitizedBody);
     res.json({
       data: updatedCar,
     });
