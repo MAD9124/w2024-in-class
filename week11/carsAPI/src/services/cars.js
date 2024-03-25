@@ -4,12 +4,14 @@ const Car = require("../models/cars");
 const { NotFoundError } = require("../middlewares/errors");
 
 const create = async (body) => {
-  const { make, model, colour } = body;
+  const { make, model, colour, seats, details } = body;
 
   const car = new Car({
     make,
     model,
     colour,
+    seats,
+    details,
   });
   const savedCar = await car.save();
 
