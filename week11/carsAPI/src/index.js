@@ -5,6 +5,8 @@ const express = require("express");
 const sanitizeMongoose = require("express-mongo-sanitize");
 const compression = require("compression");
 const cors = require("cors");
+const helmet = require("helmet");
+
 // const debug = require("debug")("week11");
 const logger = require("./utils/logger");
 
@@ -17,8 +19,11 @@ const app = express();
 app.use(express.json());
 app.use(sanitizeMongoose());
 app.use(sanitizeBody);
-app.use(compression());
-app.use(cors());
+if (process.env.NODE_ENV === "production") {
+  app.use(compression());
+  app.use(cors());
+  app.use(helmet());
+}
 
 // const corsWhiteList = ["http://127.0.0.1:5500", "http://127.0.0.1:3000"];
 // app.use(
