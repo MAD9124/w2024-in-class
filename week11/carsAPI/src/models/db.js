@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
-const debug = require("debug")("week11:db");
+// const debug = require("debug")("week11:db");
+const logger = require("../utils/logger");
 
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
-    debug("Connected to mongodb");
+    logger.info("Connected to mongodb");
   })
   .catch((e) => {
-    debug(e);
+    logger.error(e.message);
     process.exit(1);
   });

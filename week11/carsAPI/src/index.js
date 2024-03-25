@@ -2,13 +2,14 @@
 
 require("dotenv/config");
 const express = require("express");
-const sanitizeMongoose = require('express-mongo-sanitize');
-const debug = require("debug")("week11");
+const sanitizeMongoose = require("express-mongo-sanitize");
+// const debug = require("debug")("week11");
+const logger = require("./utils/logger");
 
 require("./models/db");
 const carRouter = require("./routers/cars");
 const { errorHandler } = require("./middlewares/errors");
-const sanitizeBody = require('./middlewares/sanitizeBody');
+const sanitizeBody = require("./middlewares/sanitizeBody");
 
 const app = express();
 app.use(express.json());
@@ -26,5 +27,5 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT ?? 4000;
 app.listen(PORT, () => {
-  debug(`App listening on port ${PORT}`);
+  logger.info(`App listening on port ${PORT}`);
 });

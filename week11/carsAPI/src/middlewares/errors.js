@@ -1,4 +1,5 @@
 const { MongooseError } = require("mongoose");
+const logger = require('../utils/logger');
 const debug = require("debug")("week11:errorHandler");
 
 class ApiError extends Error {
@@ -23,6 +24,7 @@ class NotFoundError extends ApiError {
 
 const errorHandler = (error, req, res, next) => {
   debug(error);
+  logger.error('1', error.message)
 
   if (error instanceof MongooseError && error.name === "ValidationError") {
     res.status(400).json({
