@@ -15,6 +15,7 @@ const carRouter = require("./routers/cars");
 const { errorHandler } = require("./middlewares/errors");
 const sanitizeBody = require("./middlewares/sanitizeBody");
 const logger = require("./utils/logger");
+const authRouter = require("./routers/authentication");
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.get("/", (_req, res) => {
   res.send("Server running 🚀🚀🚀");
 });
 
+app.use("/auth", authRouter);
 app.use("/api/cars", carRouter);
 
 app.use(errorHandler);

@@ -9,7 +9,7 @@ class BadRequestError extends ApiError {
   statusCode = 400;
 }
 
-class UnauthorizedError extends ApiError {
+class UnauthenticatedError extends ApiError {
   statusCode = 401;
 }
 
@@ -51,7 +51,7 @@ const errorHandler = (error, req, res, next) => {
 module.exports = {
   ApiError,
   BadRequestError,
-  UnauthorizedError,
+  UnauthenticatedError,
   ForbiddenError,
   NotFoundError,
   errorHandler,
