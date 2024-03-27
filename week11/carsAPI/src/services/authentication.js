@@ -1,6 +1,14 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 const User = require("../models/user");
 const { UnauthenticatedError } = require("../middlewares/errors");
+
+const generateToken = (_id) =>
+  jwt.sign({ id: _id.toString() }, process.env.JWT_SECRET, {
+    algorithm: "HS256",
+    expiresIn: 1000 * 60,
+  });
 
 const login = async (username, password) => {
   const foundUser = await User.findOne({ username });
@@ -13,7 +21,7 @@ const login = async (username, password) => {
   if (!isValidPassword) {
     throw new UnauthenticatedError("Invalid input");
   }
-  return foundUser;
+  return generateToken(foundUser._id);
 };
 
 const register = async (username, password) => {
@@ -23,7 +31,7 @@ const register = async (username, password) => {
     password: hashedPassword,
   });
   const savedUser = await user.save();
-  return savedUser;
+  return generateToken(savedUser._id);
 };
 
 module.exports = {

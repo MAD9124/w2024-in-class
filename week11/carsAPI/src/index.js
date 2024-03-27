@@ -7,7 +7,10 @@ const expressMongoSanitize = require("express-mongo-sanitize");
 const compression = require("compression");
 const cors = require("cors");
 const helmet = require("helmet");
+const passport = require("passport");
+
 require("./models/db");
+require("./utils/passport");
 
 const debug = require("debug")("week11");
 
@@ -43,6 +46,17 @@ app.get("/", (_req, res) => {
 
 app.use("/auth", authRouter);
 app.use("/api/cars", carRouter);
+
+app.get(
+  "/protected",
+  passport.authenticate("bearer", { session: false }),
+  (req, res) => {
+    console.log(req.user);
+    res.json({
+      message: "You are authenticated",
+    });
+  }
+);
 
 app.use(errorHandler);
 
